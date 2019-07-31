@@ -219,6 +219,8 @@ class DualControl(object):
             raise NotImplementedError("Actor type not supported")
         self._steer_cache = 0.0
         world.hud.notification("Press 'H' or '?' for help.", seconds=4.0)
+        world.hud.toggle_info()
+        world.camera_manager.toggle_camera()
 
         # initialize steering wheel
         pygame.joystick.init()
@@ -343,7 +345,6 @@ class DualControl(object):
     def _parse_vehicle_wheel(self):
         numAxes = self._joystick.get_numaxes()
         jsInputs = [float(self._joystick.get_axis(i)) for i in range(numAxes)]
-        print(self._joystick.get_numbuttons())
         jsButtons = [float(self._joystick.get_button(i)) for i in
                      range(self._joystick.get_numbuttons())]
 
@@ -856,7 +857,8 @@ def main():
         '--res',
         metavar='WIDTHxHEIGHT',
 #        default='1280x720',
-        default='1680x1050',
+        # default='1680x1050',
+        default='1920x1070',
         help='window resolution (default: 1680x1050)')
     argparser.add_argument(
         '--filter',
